@@ -13,10 +13,10 @@ import {
 import useAsync from '@/hooks/useAsync'
 
 export interface IUser {
-  nickName?: string;
-  profileImage?: string;
-  thumbnailImage?: string;
-  userId?: string;
+  nickName: string;
+  profileImage: string;
+  thumbnailImage: string;
+  userId: string;
 }
 
 export const useAuthStore = defineStore('auth', () => {

@@ -50,9 +50,9 @@ const onClickRegister = () => {
   }
 
   showConfirm(`닉네임 "${nickName.value}" 가 맞나요?`, async (v) => {
-    console.log('fucking', v, user.value?.userId)
-    if (v && user.value?.userId) {
-      await registerNewUser(user.value.userId, nickName.value)
+    if (v && user.value) {
+      await registerNewUser(user.value.userId, nickName.value, user.value.profileImage)
+      await router.replace('/')
     }
   }, '확인')
 }

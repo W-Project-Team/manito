@@ -6,9 +6,7 @@
       :class="[computedClass]"
     >
       <div class="flex items-center justify-center space-x-2 animate-bounce">
-        <div class="w-4 h-4 bg-blue-400 rounded-full"></div>
-        <div class="w-4 h-4 bg-green-400 rounded-full delay-300"></div>
-        <div class="w-4 h-4 bg-black rounded-full delay-700"></div>
+        <TurnSquare />
       </div>
     </div>
   </transition>
@@ -17,6 +15,7 @@
 <script lang="ts" setup>
 import { useLoading } from '@/store/useLoading'
 import { computed } from 'vue'
+import TurnSquare from '@/components/atoms/TurnSquare.vue'
 
 const loading = useLoading()
 

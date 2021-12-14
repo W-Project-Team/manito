@@ -18,9 +18,8 @@
   width: 200px;
   margin: 200px auto;
   height: 100px;
-  /* 원근법  */ 
+  /* 원근법  */
   /* -webkit-perspective: 400; */
-  
 }
 
 section {

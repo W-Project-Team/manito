@@ -6,14 +6,15 @@ export type Status = 'Waiting' | 'Done'
 
 export interface MyInfo {
   nickName: string;
+  profileImage: string;
   participated: RoomId[];
 }
 
 export interface Participant {
   name: string;
+  id: UserId;
   profileImage: string;
   connectWho: Nullable<Participant>;
-  id: UserId;
 }
 
 export interface Room {
