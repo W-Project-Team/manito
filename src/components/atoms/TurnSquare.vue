@@ -4,6 +4,7 @@
       <div 
         v-for="i of 4"
         :key="i"
+        :data-a="i"
         :style="{ ...sizeStyle, ...transLate3dSizeY(i) }"
         class="square"
       />
@@ -32,23 +33,21 @@ const prop = defineProps({
 
 const perspectiveStyle = prop.isPerspective ? { '-webkit-perspective': 400 } : {}
 
-const sizeStyle = reactive({
+const sizeStyle = ({
   width: `${prop.size}px`,
   height: `${prop.size}px`,
 })
-const transLate3dSizeY = (i: number) => reactive({
-  transform: `rotateY(${i * 90}deg) translate3d(0px, 0px, ${prop.size / 2}px)`,
+const transLate3dSizeY = (i: number) => ({
+  transform: `rotateY(${(i-1) * 90}deg) translate3d(0px, 0px, ${prop.size / 2}px)`,
 })
-const transLate3dSizeX = (i: number) => reactive({
-  transform: `rotateX(${i * 180 + 90}deg) translate3d(0px, 0px, ${prop.size / 2}px)`,
+const transLate3dSizeX = (i: number) => ({
+  transform: `rotateX(${((i-1) * 180) + 90}deg) translate3d(0px, 0px, ${prop.size / 2}px)`,
 })
 </script>
 
 <style lang="scss" scoped>
 #main-logo {
-  width: 200px;
   margin: 200px auto;
-  height: 100px;
   /* 원근법  */
   //  -webkit-perspective: 400;
 }
