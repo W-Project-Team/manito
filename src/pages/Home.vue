@@ -1,38 +1,78 @@
 <template>
   <div v-show="show">
-    <TurnSquare :size="200" />
-    <FadeInText text="Hello" :size="100" :duration="10" />
-    Hello {{ user?.userId }}
-    <Button class="btn-success" @click="onClickBtn">
-      Hello World
+    Hello {{ user?.nickName }}
+    <List>
+      <template v-for="room in roomList" :key="room.id">
+        <ListItem @click="onClickRoom(room)">
+          <p class="text-xl font-bold">
+            {{ room.title }}
+          </p>
+          <p class="text-md text-gray-600">
+            {{ room.description }}
+          </p>
+        </ListItem>
+      </template>
+    </List>
+    <Button v-if="false" class="btn-success" @click="onClickBtn">
+      Make Room
     </Button>
   </div>
 </template>
 
 <script lang="ts" setup>
-import FadeInText from "@/components/atoms/FadeInText.vue";
-import TurnSquare from '@/components/atoms/TurnSquare.vue'
-import { useAuthStore } from '@/store/auth'
 import { storeToRefs } from 'pinia'
 import { checkRegisteredUser } from '@/hooks/middlewares/useAccessGuard'
-import { addNewRoom, fetchRoom, registerUserOnRoom } from '@/utils/api'
+import { useDialog } from '@/store/useDialog'
+import { useAuthStore } from '@/store/auth'
+import { watch } from 'vue'
+import { useRoomStore } from '@/store/room'
+import { useMyInfoStore } from '@/store/myInfo'
+import List from '@/components/atoms/List.vue'
+import ListItem from '@/components/atoms/ListItem.vue'
+import useAsync from '@/hooks/useAsync'
+import { Room } from '@/types/manito'
+import { useRouter } from 'vue-router'
+import moment from 'moment'
+import { addNewRoom, registerUserOnRoom } from '@/utils/api'
 import Button from '@/components/atoms/Button.vue'
-const { user } = storeToRefs(useAuthStore())
 
+const router = useRouter()
+const { user } = storeToRefs(useAuthStore())
+const { showDialog } = useDialog()
 const { show } = checkRegisteredUser()
 
-import { fetchMockRoom } from '@/utils/api'
-import { onMounted } from 'vue'
+const { myInfo } = storeToRefs(useMyInfoStore())
+const { roomList } = storeToRefs(useRoomStore())
+const myInfoStore = useMyInfoStore()
+const roomStore = useRoomStore()
 
-onMounted(() => {
-  const result = fetchMockRoom('sadasd')
-  console.log(result)
+watch(user, async u => {
+  if (u) {
+    await useAsync(() =>
+      myInfoStore.fetchMyInfo().then(() =>
+        roomStore.fetchRoomList(myInfo.value?.participated ?? [])
+      )
+    )
+  }
+}, {
+  immediate: true
 })
 
 const onClickBtn = async () => {
-  // const roomId = await addNewRoom('hello title', 'hello description', 12, new Date())
-  const zxc = await registerUserOnRoom('n9QSwirNxarwXMzD2Vtw', user.value?.userId ?? 'no-user')
-  console.log(zxc)
+  const userId = user.value?.userId
+  if (!userId) {
+    return
+  }
+
+  const dueDate = moment().add(10, 'day').toDate()
+  const roomId = await addNewRoom(userId, '2021 W 마니또', '2021 W 마니또 🙂', 20, dueDate)
+
+  await useAsync(() => registerUserOnRoom(roomId, userId))
+  await showDialog('참여에 성공했습니다.')
+}
+
+const onClickRoom = (room: Room) => {
+  router.push(`/${room.id}`)
 }
 </script>
 
