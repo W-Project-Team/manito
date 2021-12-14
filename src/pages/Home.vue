@@ -1,79 +1,67 @@
 <template>
-  <div v-show="show">
-    Hello {{ user?.nickName }}
-    <List>
-      <template v-for="room in roomList" :key="room.id">
-        <ListItem @click="onClickRoom(room)">
-          <p class="text-xl font-bold">
-            {{ room.title }}
-          </p>
-          <p class="text-md text-gray-600">
-            {{ room.description }}
-          </p>
-        </ListItem>
-      </template>
-    </List>
-    <Button v-if="false" class="btn-success" @click="onClickBtn">
-      Make Room
-    </Button>
+  <div>
+    .
   </div>
 </template>
 
 <script lang="ts" setup>
 import { storeToRefs } from 'pinia'
-import { checkRegisteredUser } from '@/hooks/middlewares/useAccessGuard'
-import { useDialog } from '@/store/useDialog'
 import { useAuthStore } from '@/store/auth'
-import { watch } from 'vue'
 import { useRoomStore } from '@/store/room'
+import { useRoute, useRouter } from 'vue-router'
 import { useMyInfoStore } from '@/store/myInfo'
-import List from '@/components/atoms/List.vue'
-import ListItem from '@/components/atoms/ListItem.vue'
+import { onMounted, watch } from 'vue'
+import useStorage from '@/hooks/useStorage'
+import { Provider } from '@/types/auth'
 import useAsync from '@/hooks/useAsync'
-import { Room } from '@/types/manito'
-import { useRouter } from 'vue-router'
-import moment from 'moment'
-import { addNewRoom, registerUserOnRoom } from '@/utils/api'
-import Button from '@/components/atoms/Button.vue'
 
 const router = useRouter()
 const { user } = storeToRefs(useAuthStore())
-const { showDialog } = useDialog()
-const { show } = checkRegisteredUser()
-
-const { myInfo } = storeToRefs(useMyInfoStore())
 const { roomList } = storeToRefs(useRoomStore())
-const myInfoStore = useMyInfoStore()
-const roomStore = useRoomStore()
+const infoStore = useMyInfoStore()
+const { myInfo } = storeToRefs(infoStore)
+const { fetchMyInfo } = infoStore
 
-watch(user, async u => {
-  if (u) {
-    await useAsync(() =>
-      myInfoStore.fetchMyInfo().then(() =>
-        roomStore.fetchRoomList(myInfo.value?.participated ?? [])
-      )
-    )
-  }
-}, {
-  immediate: true
-})
+const query = useRoute().query
 
-const onClickBtn = async () => {
-  const userId = user.value?.userId
-  if (!userId) {
+async function goRoom () {
+  if (query.invite) {
+    router.push(`/invite/${query.invite}`)
     return
   }
-  //
-  // const dueDate = moment().add(10, 'day').toDate()
-  // const roomId = await addNewRoom(userId, '2021 W 마니또', '2021 W 마니또 🙂', 20, dueDate)
+  await useAsync(() => fetchMyInfo())
+  if (!myInfo.value) {
+    router.push({ path: '/register', query })
+    return
+  }
 
-  await useAsync(() => registerUserOnRoom('RP4VGHt0UX58FDRpkRBc', userId))
-  await showDialog('참여에 성공했습니다.')
+  if (myInfo.value.participated.length > 0) {
+    router.push({ name: 'Room', params: { roomId: myInfo.value.participated[0] } })
+  }
 }
 
-const onClickRoom = (room: Room) => {
-  router.push(`/${room.id}`)
-}
+onMounted(async () => {
+  if (user.value) {
+    goRoom()
+    return
+  }
+
+  const { localStorage } = useStorage()
+  const providedBy = localStorage.getItem<Provider>('provider')
+
+  let success = false
+
+  if (providedBy === 'Google' || providedBy === 'Github') {
+    success = await useAsync(() => useAuthStore().getPersistenceFirebaseUser(providedBy))
+  }
+
+  if (!success) {
+    router.push({ path: '/auth/login', query })
+    return
+  }
+
+  goRoom()
+})
 </script>
 
 <style scoped>

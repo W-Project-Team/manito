@@ -8,10 +8,6 @@
 </template>
 
 <script lang="ts" setup>
-const props = defineProps<{
-  width?: number,
-  height?: number
-}>()
 
 </script>
 

@@ -14,7 +14,8 @@ export interface Participant {
   name: string;
   id: UserId;
   profileImage: string;
-  connectWho: Nullable<Participant>;
+  connectTo?: Nullable<Participant>;
+  connectFrom?: Nullable<Participant>;
 }
 
 export interface Room {

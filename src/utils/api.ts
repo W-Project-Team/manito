@@ -1,5 +1,7 @@
 import { collection, doc, getDoc, getFirestore, setDoc, addDoc, updateDoc, arrayUnion, Timestamp } from 'firebase/firestore'
-import { MyInfo, Room, RoomId, UserId } from '@/types/manito'
+import { MyInfo, Participant, Room, RoomId, UserId } from '@/types/manito'
+import { Nullable } from '@/types/base'
+import { randomIndex, shuffle } from '@/utils/random'
 
 const PATH = {
   MY_INFO: 'MyInfo',
@@ -95,7 +97,8 @@ export async function registerUserOnRoom (roomId: RoomId, userId: UserId) {
       name: myInfo.nickName,
       id: userId,
       profileImage: myInfo.profileImage,
-      connectTo: null
+      connectTo: null,
+      connectFrom: null
     }]
   })
 
@@ -125,4 +128,26 @@ export async function fetchRoom (roomId: RoomId): Promise<Room> {
   }
 
   return snapshot.data() as Room
+}
+
+export async function startManito (roomId: RoomId) {
+  const room = await fetchRoom(roomId)
+
+  shuffle<Participant>(room.participants)
+
+  for (let index = 0; index < room.participants.length; index++) {
+    const isLast = room.participants.length - 1 === index
+
+    const me = room.participants[index]
+    const target = isLast ? room.participants[0] : room.participants[index + 1]
+    me.connectTo = { id: target.id, name: target.name, profileImage: target.profileImage }
+  }
+
+  room.status = 'Done'
+  const db = getFirestore()
+
+  updateDoc(doc(collection(db, PATH.ROOMS), roomId), {
+    status: 'Done',
+    participants: room.participants
+  })
 }

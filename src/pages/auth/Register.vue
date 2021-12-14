@@ -41,7 +41,7 @@ const nickName = ref<string>('')
 
 onBeforeMount(() => {
   if (!isAuthenticated) {
-    router.replace('/auth/login')
+    router.push('/auth/login')
   }
 })
 

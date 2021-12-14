@@ -5,7 +5,7 @@
     "dev": "vite",
     "build": "vue-tsc --noEmit && vite build",
     "preview": "vite preview",
-    "deploy": "yarn build && firebase deploy"
+    "deploy": "yarn build && firebase deploy --only hosting"
   },
   "dependencies": {
     "@headlessui/vue": "^1.4.2",

@@ -29,7 +29,10 @@ onMounted(async () => {
       await useAsync(() => Promise.reject(new Error('잘못된 방번호 입니다.')))
       return
     }
-    await useAsync(() => getPersistenceFirebaseUser('Google'))
+
+    if (!user.value) {
+      throw new Error('Need Login')
+    }
   } catch (e) {
     await router.push({
       path: '/auth/login',
@@ -37,6 +40,7 @@ onMounted(async () => {
         invite: roomId
       }
     })
+    return
   }
 
   try {
@@ -65,7 +69,12 @@ onMounted(async () => {
     } else {
       await useAsync(() => registerUserOnRoom(roomId, userId))
       await showDialog('등록에 성공했습니다.')
-      await router.push(`/${roomId}`)
+      await router.push({
+        name: 'Room',
+        params: {
+          roomId: roomId
+        }
+      })
     }
   } catch (e) {
     await router.push({

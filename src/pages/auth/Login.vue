@@ -36,7 +36,6 @@ interface LoginProvider {
   provider: AuthProvider;
 }
 
-const btnRef = ref<Nullable<HTMLElement>>(null)
 const { loginWithFirebase } = useAuthStore()
 const router = useRouter()
 const route = useRoute()
@@ -61,10 +60,7 @@ const events = {
   async onClickLogin (provider: AuthProvider, name: Provider) {
     await loginWithFirebase(provider, name)
     localStorage.setItem('provider', name)
-    await router.push({
-      path: '/',
-      query
-    })
+    await router.push({ path: '/', query })
   }
 }
 

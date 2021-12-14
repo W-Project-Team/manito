@@ -15,6 +15,7 @@ import useStorage from '@/hooks/useStorage'
 import { useLoading } from '@/store/useLoading'
 import { onBeforeMount } from 'vue'
 import { Provider } from '@/types/auth'
+import { storeToRefs } from 'pinia'
 
 const routes: RouteRecordRaw[] = [
   {
@@ -42,10 +43,10 @@ const routes: RouteRecordRaw[] = [
       }
     ],
     async beforeEnter (before, after, next) {
-      const { getPersistenceFirebaseUser, isAuthenticated } = useAuthStore()
+      const { isAuthenticated } = storeToRefs(useAuthStore())
       const { localStorage } = useStorage()
 
-      if (isAuthenticated) {
+      if (isAuthenticated.value) {
         next()
         return
       }
@@ -54,16 +55,17 @@ const routes: RouteRecordRaw[] = [
       try {
         const providedBy = localStorage.getItem<Provider>('provider')
         if (providedBy === 'Google' || providedBy === 'Github') {
-          success = await getPersistenceFirebaseUser(providedBy)
+          success = await useAuthStore().getPersistenceFirebaseUser(providedBy)
         }
 
         if (!success) {
           next('/auth/login')
         }
-        next()
       } catch {
         next('/auth/login')
       }
+
+      next()
     }
   },
   {

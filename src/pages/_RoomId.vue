@@ -5,6 +5,11 @@
         <h2 class="text-white">
           {{ currentRoom.title }}
         </h2>
+        <div class="mt-6">
+          <Button class="btn-success" v-if="showStartBtn" @click="onClickStart">
+            마니또 매칭 시작
+          </Button>
+        </div>
         <span class="tit_paticipants text-white text-lg">참가인원</span>
         <List>
           <template v-for="participant in currentRoom.participants" :key="participant.id">
@@ -18,11 +23,8 @@
         </List>
         <div class="img_box mt-6">
           <!-- 하드코딩임 -->
-          <span class="txt_matching">name</span>
+          <span class="txt_matching">{{ myManito ? myManito.name : '선택되지 않았어요' }}</span>
         </div>
-      </template>
-      <template>
-        <Button class="btn-success mt-6">마니또 매칭 시작</Button>
       </template>
     </div>
   </transition>
@@ -37,8 +39,10 @@ import { useMyInfoStore } from '@/store/myInfo'
 import { useRoomStore } from '@/store/room'
 import { useAuthStore } from '@/store/auth'
 import { Room } from '@/types/manito'
+import Button from '@/components/atoms/Button.vue'
 import List from '@/components/atoms/List.vue'
 import ListItem from '@/components/atoms/ListItem.vue'
+import { startManito } from '@/utils/api'
 
 const { user } = storeToRefs(useAuthStore())
 const { myInfo } = storeToRefs(useMyInfoStore())
@@ -49,6 +53,7 @@ const roomStore = useRoomStore()
 const loading = ref(true)
 
 const currentRoom = computed<Room>(() => roomList.value.filter(x => x.id === roomId.value)[0] ?? null)
+const showStartBtn = computed(() => currentRoom.value.presidentId === user.value?.userId && currentRoom.value.status === 'Waiting')
 
 watch(user, async u => {
   if (u) {
@@ -67,14 +72,25 @@ watch(user, async u => {
 const route = useRoute()
 
 const roomId = computed(() => route.params.roomId)
+const myManito = computed(() => {
+  const me = currentRoom.value.participants.find(x => x.id === user.value?.userId)
+  if (!me) {
+    return null
+  }
 
-onMounted(() => {
-  console.log('user',user)
+  return me.connectTo ?? null
 })
+
+const onClickStart = async () => {
+  await useAsync(() => startManito('RP4VGHt0UX58FDRpkRBc'))
+  location.reload()
+}
 </script>
 <style scoped lang="scss">
 .wrap_room{
-  min-width: 320px
+  min-width: 320px;
+  z-index: 100;
+  background: transparent;
 }
 .tit_paticipants{
   display: inline-block;
