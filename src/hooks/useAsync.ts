@@ -33,6 +33,9 @@ export default async function useAsync <T> (
     }
     throw e
   } finally {
-    setLoading(false)
+    setTimeout(() => 
+      setLoading(false),
+      2200
+    )
   }
 }

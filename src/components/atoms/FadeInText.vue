@@ -3,6 +3,8 @@
 </template>
 
 <script lang="ts" setup>
+import { reactive } from "vue-demi"
+
 const prop = defineProps({
   text: String,
   size: Number,
@@ -16,19 +18,19 @@ const prop = defineProps({
   },
 })
 
-const style = {
+const style = reactive({
   fontSize: `${prop.size}px`,
   animationDuration: `${prop.duration}s`,
   animationIterationCount: `${prop.isInfinite ? 'infinite' : 'unset'}`,
-}
+})
 </script>
 
 <style lang="scss" scoped>
 p {
   animation-name: rint;
-  animation-duration: 4s;
+  // animation-duration: 4s;
   animation-timing-function: linear;
-  animation-iteration-count: infinite;
+  // animation-iteration-count: infinite;
   animation-direction: alternate;
 }
 
