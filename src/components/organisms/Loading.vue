@@ -6,7 +6,7 @@
       :class="[computedClass]"
     >
       <div class="flex items-center justify-center space-x-2 animate-bounce">
-        <TurnSquare />
+        <TurnSquare :size="100" isPerspective />
       </div>
     </div>
   </transition>

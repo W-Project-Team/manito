@@ -1,5 +1,7 @@
 <template>
   <div v-show="show">
+    <TurnSquare :size="200" />
+    <FadeInText text="Hello" :size="100" :duration="10" />
     Hello {{ user?.userId }}
     <Button class="btn-success" @click="onClickBtn">
       Hello World
@@ -8,6 +10,8 @@
 </template>
 
 <script lang="ts" setup>
+import FadeInText from "@/components/atoms/FadeInText.vue";
+import TurnSquare from '@/components/atoms/TurnSquare.vue'
 import { useAuthStore } from '@/store/auth'
 import { storeToRefs } from 'pinia'
 import { checkRegisteredUser } from '@/hooks/middlewares/useAccessGuard'
