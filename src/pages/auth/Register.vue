@@ -28,12 +28,14 @@ import Input from '@/components/atoms/Input.vue'
 import Button from '@/components/atoms/Button.vue'
 import { useAuthStore } from '@/store/auth'
 import { storeToRefs } from 'pinia'
-import { useRouter } from 'vue-router'
+import { useRoute, useRouter } from 'vue-router'
 import { registerNewUser } from '@/utils/api'
 
 const { user, isAuthenticated } = storeToRefs(useAuthStore())
 const { showConfirm, showDialog } = useDialog()
 const router = useRouter()
+const route = useRoute()
+const query = route.query
 
 const nickName = ref<string>('')
 
@@ -52,7 +54,10 @@ const onClickRegister = () => {
   showConfirm(`닉네임 "${nickName.value}" 가 맞나요?`, async (v) => {
     if (v && user.value) {
       await registerNewUser(user.value.userId, nickName.value, user.value.profileImage)
-      await router.replace('/')
+      await router.push({
+        path: '/',
+        query
+      })
     }
   }, '확인')
 }
