@@ -2,16 +2,16 @@
   <transition name="fade">
     <div class="wrap_room text-center text-xl font-bold" v-if="!loading">
       <template v-if="currentRoom">
-        <h2 class="text-gray-700">
+        <h2 class="text-white">
           {{ currentRoom.title }}
         </h2>
-        <span class="tit_paticipants">참가인원</span>
+        <span class="tit_paticipants text-white text-lg">참가인원</span>
         <List>
           <template v-for="participant in currentRoom.participants" :key="participant.id">
             <ListItem>
               <div class="flex items-center">
                 <img :src="participant.profileImage" class="w-6 h-6 rounded-full" />
-                <span class="ml-4 text-sm font-normal">{{ participant.name }}</span>
+                <span class="ml-4 text-sm font-normal text-white">{{ participant.name }}</span>
               </div>
             </ListItem>
           </template>
@@ -80,14 +80,14 @@ onMounted(() => {
   display: inline-block;
   margin-bottom: 10px;
   padding: 18px 0 15px;
-  border-bottom: 3px solid #333;
+  border-bottom: 1px dashed #fff;
   width: 100%;
   text-align: left;
   line-height: 1;
 }
 .area_participant{
   padding: 0 0 15px;
-  border-bottom: 3px solid #333;
+  border-bottom: 1px dashed #fff;
   .list_participant{
     text-align: left;
     font-weight: 400;
