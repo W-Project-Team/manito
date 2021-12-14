@@ -10,18 +10,18 @@
           <template v-for="participant in currentRoom.participants" :key="participant.id">
             <ListItem>
               <div class="flex items-center">
-                <img :src="participant.profileImage" class="w-12 h-12 rounded-full" />
-                <span class="ml-4">{{ participant.name }}</span>
+                <img :src="participant.profileImage" class="w-6 h-6 rounded-full" />
+                <span class="ml-4 text-sm font-normal">{{ participant.name }}</span>
               </div>
             </ListItem>
           </template>
         </List>
-      </template>
-      <template>
         <div class="img_box mt-6">
           <!-- 하드코딩임 -->
-          <span class="txt_matching">currentRoom.participants[0].name</span>
+          <span class="txt_matching">name</span>
         </div>
+      </template>
+      <template>
         <Button class="btn-success mt-6">마니또 매칭 시작</Button>
       </template>
     </div>
@@ -29,7 +29,7 @@
 </template>
 
 <script lang="ts" setup>
-import { computed, ref, watch } from 'vue'
+import { computed, onMounted, ref, watch } from 'vue'
 import { useRoute } from 'vue-router'
 import useAsync from '@/hooks/useAsync'
 import { storeToRefs } from 'pinia'
@@ -68,6 +68,9 @@ const route = useRoute()
 
 const roomId = computed(() => route.params.roomId)
 
+onMounted(() => {
+  console.log('user',user)
+})
 </script>
 <style scoped lang="scss">
 .wrap_room{
