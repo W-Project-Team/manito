@@ -9,6 +9,7 @@ import Home from '@/pages/Home.vue'
 import Login from '@/pages/auth/Login.vue'
 import Register from '@/pages/auth/Register.vue'
 import _RoomId from '@/pages/_RoomId.vue'
+import Invite_RoomId from '@/pages/invite/Invite_RoomId.vue'
 
 const routes: RouteRecordRaw[] = [
   {
@@ -42,6 +43,19 @@ const routes: RouteRecordRaw[] = [
         path: 'Login',
         component: Login,
         meta: { title: '로그인' }
+      }
+    ]
+  },
+  {
+    path: '/invite',
+    name: '초대',
+    component: defaultLayout,
+    meta: { title: '초대' },
+    children: [
+      {
+        path: ':roomId',
+        component: Invite_RoomId,
+        meta: { title: '초대' }
       }
     ]
   }

@@ -126,8 +126,3 @@ export async function fetchRoom (roomId: RoomId): Promise<Room> {
 
   return snapshot.data() as Room
 }
-
-export function fetchMockRoom (roomId: RoomId): Room {
-  const mock = mockRoom[0]
-  return mock
-}

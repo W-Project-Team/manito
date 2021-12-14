@@ -63,11 +63,11 @@ const onClickBtn = async () => {
   if (!userId) {
     return
   }
+  //
+  // const dueDate = moment().add(10, 'day').toDate()
+  // const roomId = await addNewRoom(userId, '2021 W 마니또', '2021 W 마니또 🙂', 20, dueDate)
 
-  const dueDate = moment().add(10, 'day').toDate()
-  const roomId = await addNewRoom(userId, '2021 W 마니또', '2021 W 마니또 🙂', 20, dueDate)
-
-  await useAsync(() => registerUserOnRoom(roomId, userId))
+  await useAsync(() => registerUserOnRoom('RP4VGHt0UX58FDRpkRBc', userId))
   await showDialog('참여에 성공했습니다.')
 }
 
