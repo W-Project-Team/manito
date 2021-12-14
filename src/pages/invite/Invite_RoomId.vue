@@ -18,7 +18,6 @@ const { showDialog } = useDialog()
 
 onMounted(async () => {
   const roomId = route.params.roomId as string
-  console.log('fucking', roomId)
 
   try {
 

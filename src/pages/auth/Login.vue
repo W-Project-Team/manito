@@ -22,7 +22,7 @@ import { ref } from 'vue'
 import { Nullable } from '@/types/base'
 import { GoogleAuthProvider, GithubAuthProvider, AuthProvider } from 'firebase/auth'
 import { useAuthStore } from '@/store/auth'
-import { useRouter } from 'vue-router'
+import { useRoute, useRouter } from 'vue-router'
 
 import Button from '@/components/atoms/Button.vue'
 import List from '@/components/atoms/List.vue'
@@ -39,6 +39,8 @@ interface LoginProvider {
 const btnRef = ref<Nullable<HTMLElement>>(null)
 const { loginWithFirebase } = useAuthStore()
 const router = useRouter()
+const route = useRoute()
+const query = route.query
 
 const loginProviderList: LoginProvider[] = [
   {
@@ -59,7 +61,10 @@ const events = {
   async onClickLogin (provider: AuthProvider, name: Provider) {
     await loginWithFirebase(provider, name)
     localStorage.setItem('provider', name)
-    await router.push('/')
+    await router.push({
+      path: '/',
+      query
+    })
   }
 }
 
