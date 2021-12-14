@@ -29,7 +29,7 @@ const { isScrolledY } = useScrollObserver({
 	  width: 100%;
 	  height: 970px;
 	  overflow: hidden;
-	  background: red no-repeat center top;
+	  background: #00185c
 	}
 
 	.top span {
