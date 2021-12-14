@@ -1,5 +1,5 @@
 import { useAuthStore } from '@/store/auth'
-import { useRouter } from 'vue-router'
+import { useRoute, useRouter } from 'vue-router'
 import { onMounted, ref } from 'vue'
 import { RoomId, UserId } from '@/types/manito'
 import { isRegisteredUser } from '@/utils/api'
@@ -29,6 +29,7 @@ async function autoLogin () {
 export function checkRegisteredUser () {
   const { user } = storeToRefs(useAuthStore())
   const router = useRouter()
+  const route = useRoute()
 
   const show = ref(false)
 
@@ -44,6 +45,13 @@ export function checkRegisteredUser () {
 
     if (!registered) {
       await router.replace('/register')
+      return
+    }
+
+    const invite = route.query.invite
+    if (invite) {
+      await router.replace(`/invite/${invite}`)
+      return
     }
 
     show.value = true
