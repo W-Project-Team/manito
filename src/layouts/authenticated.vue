@@ -1,8 +1,8 @@
 <template>
   <template v-if="!loading">
     <div class="relative w-full h-full">
-      <main class="mx-auto max-w-xl w-full h-full">
-        <router-view/>
+      <main class="mx-auto max-w-xl w-full h-full px-4 py-4">
+        <router-view />
       </main>
     </div>
   </template>
