@@ -5,15 +5,15 @@ export declare namespace Manito {
   type RoomId = string;
   type Status = 'Waiting' | 'Done'
 
-  interface Member {
+  interface Participant {
     name: string;
     profileImage: string;
-    connectWho: Nullable<Member>;
+    connectWho: Nullable<Participant>;
     id: UserId;
   }
 
   interface Room {
-    participants: Member[];
+    participants: Participant[];
     dueDate: Date;
     createdAt: Date;
     id: RoomId;

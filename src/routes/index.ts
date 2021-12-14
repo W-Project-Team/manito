@@ -2,6 +2,7 @@ import { createWebHistory, createRouter, RouteRecordRaw } from 'vue-router'
 
 //  Layouts
 import defaultLayout from '@/layouts/default.vue'
+import authenticatedLayout from '@/layouts/authenticated.vue'
 
 //  Pages
 import Home from '@/pages/Home.vue'
@@ -11,7 +12,7 @@ const routes: RouteRecordRaw[] = [
   {
     path: '/',
     name: 'Home',
-    component: defaultLayout,
+    component: authenticatedLayout,
     children: [
       {
         path: '',
