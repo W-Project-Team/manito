@@ -1,7 +1,7 @@
 <template>
   <div class="container h-screen flex justify-center items-center">
     <div class="p-8 max-w-6xl">
-      <h1 class="font-bold text-indigo-800 dark:text-indigo-200 text-3xl text-center mb-8">Login</h1>
+      <h1 class="font-bold text-indigo-800 dark:text-indigo-200 text-3xl text-center mb-8">로그인</h1>
       <h2 class="font-bold text-2xl text-center dark:text-gray-50 mb-8">W 마니또</h2>
       <List>
         <template v-for="(provider, index) in loginProviderList" :key="index">

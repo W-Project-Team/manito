@@ -9,7 +9,7 @@
 </template>
 
 <script lang="ts" setup>
-import useAuth from '@/hooks/useAuth'
+import useAuth from '@/hooks/middlewares/useAuth'
 import useScrollObserver from '@/hooks/useScrollObserver'
 
 const { loading } = useAuth()

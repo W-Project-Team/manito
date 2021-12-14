@@ -16,9 +16,9 @@ export default function useAuth () {
       return
     }
 
-    const providedBy = localStorage.getItem<Provider>('provider')
     let success = false
     try {
+      const providedBy = localStorage.getItem<Provider>('provider')
       if (providedBy === 'Google' || providedBy === 'Github') {
         success = await getPersistenceFirebaseUser(providedBy)
       }

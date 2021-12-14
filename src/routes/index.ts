@@ -7,6 +7,7 @@ import authenticatedLayout from '@/layouts/authenticated.vue'
 //  Pages
 import Home from '@/pages/Home.vue'
 import Login from '@/pages/auth/Login.vue'
+import Register from '@/pages/auth/Register.vue'
 
 const routes: RouteRecordRaw[] = [
   {
@@ -17,7 +18,12 @@ const routes: RouteRecordRaw[] = [
       {
         path: '',
         component: Home,
-        meta: { title: 'Home' }
+        meta: { title: '홈' }
+      },
+      {
+        path: 'Register',
+        component: Register,
+        meta: { title: '회원가입' }
       }
     ]
   },
@@ -29,7 +35,7 @@ const routes: RouteRecordRaw[] = [
       {
         path: 'Login',
         component: Login,
-        meta: { title: 'Login' }
+        meta: { title: '로그인' }
       }
     ]
   }
