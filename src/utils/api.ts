@@ -42,13 +42,14 @@ export async function updateMyInfo (userId: UserId, data: Partial<MyInfo>) {
   })
 }
 
-export async function addNewRoom (title: string, description: string, size: number, dueDate: Date) {
+export async function addNewRoom (userId: string, title: string, description: string, size: number, dueDate: Date) {
   const db = getFirestore()
   const doc = await addDoc(collection(db, PATH.ROOMS), {
     title,
     description,
     dueDate,
     size,
+    presidentId: userId,
     createdAt: new Date(),
     status: 'Waiting',
     participants: []

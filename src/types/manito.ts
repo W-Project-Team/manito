@@ -20,6 +20,7 @@ export interface Participant {
 export interface Room {
   participants: Participant[];
   dueDate: Date;
+  presidentId: UserId;
   createdAt: Date;
   id: RoomId;
   status: 'Waiting' | 'Done';
