@@ -2,7 +2,7 @@ import { useAuthStore } from '@/store/auth'
 import { useRouter } from 'vue-router'
 import { onMounted, ref } from 'vue'
 import { RoomId, UserId } from '@/types/manito'
-import { isRegisterUser } from '@/utils/api'
+import { isRegisteredUser } from '@/utils/api'
 import { Provider } from '@/types/auth'
 import useStorage from '@/hooks/useStorage'
 import { storeToRefs } from 'pinia'
@@ -40,7 +40,7 @@ export function checkRegisteredUser () {
       return
     }
 
-    const registered = await isRegisterUser(user.value.userId)
+    const registered = await isRegisteredUser(user.value.userId)
 
     if (!registered) {
       await router.replace('/register')
