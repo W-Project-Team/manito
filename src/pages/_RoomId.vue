@@ -1,11 +1,11 @@
 <template>
   <transition name="fade">
     <div class="wrap_room text-center text-xl font-bold" v-if="!loading">
-      <span class="tit_paticipants">참가인원</span>
       <template v-if="currentRoom">
         <h2 class="text-gray-700">
           {{ currentRoom.title }}
         </h2>
+        <span class="tit_paticipants">참가인원</span>
         <List>
           <template v-for="participant in currentRoom.participants" :key="participant.id">
             <ListItem>
