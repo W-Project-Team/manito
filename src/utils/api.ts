@@ -1,5 +1,5 @@
 import { collection, doc, getDoc, getFirestore, setDoc, addDoc, updateDoc, arrayUnion, Timestamp } from 'firebase/firestore'
-import { Room, RoomId, UserId } from '@/types/manito'
+import { Room, RoomId, UserId, mockRoom } from '@/types/manito'
 
 const PATH = {
   MY_INFO: 'MyInfo',
@@ -92,4 +92,9 @@ export async function fetchRoom (roomId: RoomId): Promise<Room> {
   }
 
   return snapshot.data() as Room
+}
+
+export function fetchMockRoom (roomId: RoomId): Room {
+  const mock = mockRoom[0]
+  return mock
 }

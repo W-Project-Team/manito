@@ -17,6 +17,14 @@ const { user } = storeToRefs(useAuthStore())
 
 const { show } = checkRegisteredUser()
 
+import { fetchMockRoom } from '@/utils/api'
+import { onMounted } from 'vue'
+
+onMounted(() => {
+  const result = fetchMockRoom('sadasd')
+  console.log(result)
+})
+
 const onClickBtn = async () => {
   // const roomId = await addNewRoom('hello title', 'hello description', 12, new Date())
   const zxc = await registerUserOnRoom('n9QSwirNxarwXMzD2Vtw', user.value?.userId ?? 'no-user')
