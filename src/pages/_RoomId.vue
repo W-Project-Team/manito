@@ -2,7 +2,7 @@
   <transition name="fade">
     <div class="wrap_room text-center text-xl font-bold" v-if="!loading">
       <template v-if="currentRoom">
-        <h2 class="text-white text-2xl">
+        <h2 class="focus-in-expand text-white text-2xl">
           {{ currentRoom.title }}
         </h2>
         <p class="text-right text-base text-white font-bold mt-4">
@@ -31,7 +31,7 @@
           <span class="txt_matching">{{ myManito ? myManito.name : '선택되지 않았어요' }}</span>
         </div>
       </template>
-      <ul class="mt-6 text-white text-left font-normal mission-list">
+      <ul class="mt-6 mb-20 text-white text-left font-normal mission-list">
         <li class="text-base">&#128154; 만원이하 선물</li>
         <li class="text-base">&#128155; 팀즈 좋아요 눌러주기</li>
         <li class="text-base">&#129505; 쓸데없이 말걸기</li>
@@ -141,8 +141,43 @@ const onClickStart = async () => {
   }
 }
 .mission-list {
+  padding: 10px 0;
   li {
     margin: 5px 0;
   }
 }
+
+
+.focus-in-expand {
+  background-color: #00185c; 
+	-webkit-animation: focus-in-expand 0.8s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
+	        animation: focus-in-expand 0.8s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
+}
+@-webkit-keyframes focus-in-expand {
+  0% {
+    letter-spacing: -0.5em;
+    -webkit-filter: blur(12px);
+            filter: blur(12px);
+    opacity: 0;
+  }
+  100% {
+    -webkit-filter: blur(0px);
+            filter: blur(0px);
+    opacity: 1;
+  }
+}
+@keyframes focus-in-expand {
+  0% {
+    letter-spacing: -0.5em;
+    -webkit-filter: blur(12px);
+            filter: blur(12px);
+    opacity: 0;
+  }
+  100% {
+    -webkit-filter: blur(0px);
+            filter: blur(0px);
+    opacity: 1;
+  }
+}
+
 </style>
