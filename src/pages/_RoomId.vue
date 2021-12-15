@@ -5,7 +5,7 @@
         <h2 class="text-white text-2xl">
           {{ currentRoom.title }}
         </h2>
-        <p class="text-right text-white font-bold mt-4">
+        <p class="text-right text-base text-white font-bold mt-4">
           {{ dueDate }} 까지
         </p>
         <div class="mt-6">
