@@ -43,12 +43,12 @@
     </div>
   </transition>
   <transition name="fade">
-    <div class="text-white" v-if="showDugudugu">
-      <div class="flex justify-center">
-        <TurnSquare />
-      </div>
+    <div class="mt-6 text-white" v-if="showDugudugu">
       <div class="text-2xl text-center">
         과연 누가 뽑힐까요!!
+      </div>
+      <div class="area_turnSquare flex justify-center mb-20">
+        <TurnSquare />
       </div>
     </div>
   </transition>
@@ -202,5 +202,7 @@ const onClickStart = async () => {
     opacity: 1;
   }
 }
-
+.area_turnSquare{
+  margin-top: -50px;
+}
 </style>
