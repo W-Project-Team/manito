@@ -146,7 +146,7 @@ export async function startManito (roomId: RoomId) {
   room.status = 'Done'
   const db = getFirestore()
 
-  updateDoc(doc(collection(db, PATH.ROOMS), roomId), {
+  await updateDoc(doc(collection(db, PATH.ROOMS), roomId), {
     status: 'Done',
     participants: room.participants
   })

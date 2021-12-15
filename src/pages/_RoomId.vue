@@ -52,6 +52,7 @@ const roomStore = useRoomStore()
 
 const loading = ref(true)
 
+const xxx = computed(() => roomList.value.filter(x => x.id === roomId.value))
 const currentRoom = computed<Room>(() => roomList.value.filter(x => x.id === roomId.value)[0] ?? null)
 const showStartBtn = computed(() => currentRoom.value.presidentId === user.value?.userId && currentRoom.value.status === 'Waiting')
 
