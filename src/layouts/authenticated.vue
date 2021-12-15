@@ -35,7 +35,7 @@ const { isScrolledY } = useScrollObserver({
 	  width: 100%;
 	  position: relative;
 	  width: 100%;
-	  height: 970px;
+	  height: 100%;
 	  overflow: hidden;
 	  background: #00185c
 	}

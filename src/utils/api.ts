@@ -127,7 +127,9 @@ export async function fetchRoom (roomId: RoomId): Promise<Room> {
     throw new Error(`방 (${roomId})이 존재하지 않습니다.`)
   }
 
-  return snapshot.data() as Room
+  const data = snapshot.data()
+  data.dueDate = data.dueDate.toDate()
+  return data as Room
 }
 
 export async function startManito (roomId: RoomId) {

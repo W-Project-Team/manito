@@ -2,9 +2,12 @@
   <transition name="fade">
     <div class="wrap_room text-center text-xl font-bold" v-if="!loading">
       <template v-if="currentRoom">
-        <h2 class="text-white">
+        <h2 class="text-white text-2xl">
           {{ currentRoom.title }}
         </h2>
+        <p class="text-right text-white font-bold mt-4">
+          {{ dueDate }} 까지
+        </p>
         <div class="mt-6">
           <Button class="btn-success" v-if="showStartBtn" @click="onClickStart">
             마니또 매칭 시작
@@ -23,11 +26,20 @@
             </template>
           </List>
         </div>
-        <div v-else class="img_box mt-6">
+        <div v-else class="img_box mt-6 rounded-xl">
           <!-- 하드코딩임 -->
           <span class="txt_matching">{{ myManito ? myManito.name : '선택되지 않았어요' }}</span>
         </div>
       </template>
+      <ul class="mt-6 text-white text-left font-normal mission-list">
+        <li class="">&#128154; 만원이하 선물</li>
+        <li>&#128155; 팀즈 좋아요 눌러주기</li>
+        <li>&#129505; 쓸데없이 말걸기</li>
+        <li>&#128156; 리액션 잘해주기</li>
+        <li>&#128153; 눈인사 찡끗 😜</li>
+      </ul>
+      <span></span>
+
     </div>
   </transition>
 </template>
@@ -45,6 +57,7 @@ import Button from '@/components/atoms/Button.vue'
 import List from '@/components/atoms/List.vue'
 import ListItem from '@/components/atoms/ListItem.vue'
 import { startManito } from '@/utils/api'
+import moment from 'moment'
 
 const { user } = storeToRefs(useAuthStore())
 const { myInfo } = storeToRefs(useMyInfoStore())
@@ -54,7 +67,7 @@ const roomStore = useRoomStore()
 
 const loading = ref(true)
 
-const xxx = computed(() => roomList.value.filter(x => x.id === roomId.value))
+const dueDate = computed(() => moment(currentRoom.value.dueDate).format('YYYY년 M월 D일'))
 const currentRoom = computed<Room>(() => roomList.value.filter(x => x.id === roomId.value)[0] ?? null)
 const showStartBtn = computed(() => currentRoom.value.presidentId === user.value?.userId && currentRoom.value.status === 'Waiting')
 
@@ -123,5 +136,9 @@ const onClickStart = async () => {
     margin-top: -23%;
   }
 }
-
+.mission-list {
+  li {
+    margin: 5px 0;
+  }
+}
 </style>
