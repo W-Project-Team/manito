@@ -28,14 +28,14 @@ const { isScrolledY } = useScrollObserver({
   position: relative;
   overflow: hidden;
   width: 100%;
-  height: 100%;
+  height: 100vh;
 }
 .top {
 	  position: relative;
 	  width: 100%;
 	  position: relative;
 	  width: 100%;
-	  height: 970px;
+	  height: 100vh;
 	  overflow: hidden;
 	  background: #00185c
 	}
@@ -98,10 +98,10 @@ const { isScrolledY } = useScrollObserver({
     z-index: 5;
 	  -webkit-transform: rotate(44deg);
 	  transform: rotate(44deg);
-	  height: 200vh;
-	  width: 270vh;
+	  height: 100vh;
+	  width: 100vh;
 	  position: absolute;
-	  top: 50%;
+	  top: 0;
 	  left: 65%;
 	  -webkit-transform: translate(-50%, -50%) rotate(20deg);
 	  transform: translate(-50%, -50%) rotate(-215deg);
