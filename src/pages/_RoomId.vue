@@ -2,10 +2,10 @@
   <transition name="fade">
     <div class="wrap_room text-center text-xl font-bold" v-if="!loading && !showDugudugu">
       <template v-if="currentRoom">
-        <h2 class="text-white text-2xl">
+        <h2 class="focus-in-expand text-white text-2xl">
           {{ currentRoom.title }}
         </h2>
-        <p class="text-right text-white font-bold mt-4">
+        <p class="text-right text-base text-white font-bold mt-4">
           {{ dueDate }} 까지
         </p>
         <div class="mt-6">
@@ -15,12 +15,12 @@
         </div>
         <div v-if="!myManito">
           <span class="tit_paticipants text-white text-lg">참가인원</span>
-          <List>
+          <List class="list_parti">
             <template v-for="participant in currentRoom.participants" :key="participant.id">
               <ListItem>
                 <div class="flex items-center">
                   <img :src="participant.profileImage" class="w-6 h-6 rounded-full" />
-                  <span class="ml-4 text-sm font-normal text-white">{{ participant.name }}</span>
+                  <span class="ml-4 text-lg font-normal text-white">{{ participant.name }}</span>
                 </div>
               </ListItem>
             </template>
@@ -31,12 +31,12 @@
           <span class="txt_matching">{{ myManito ? myManito.name : '선택되지 않았어요' }}</span>
         </div>
       </template>
-      <ul class="mt-6 text-white text-left font-normal mission-list">
-        <li class="">&#128154; 만원이하 선물</li>
-        <li>&#128155; 팀즈 좋아요 눌러주기</li>
-        <li>&#129505; 쓸데없이 말걸기</li>
-        <li>&#128156; 리액션 잘해주기</li>
-        <li>&#128153; 눈인사 찡끗 😜</li>
+      <ul class="mt-6 mb-20 text-white text-left font-normal mission-list">
+        <li class="text-base">&#128154; 만원이하 선물</li>
+        <li class="text-base">&#128155; 팀즈 좋아요 눌러주기</li>
+        <li class="text-base">&#129505; 쓸데없이 말걸기</li>
+        <li class="text-base">&#128156; 리액션 잘해주기</li>
+        <li class="text-base">&#128153; 눈인사 찡끗 😜</li>
       </ul>
       <span></span>
 
@@ -148,6 +148,10 @@ const onClickStart = async () => {
     font-weight: 400;
   }
 }
+.list_parti {
+  padding: 0 0 15px;
+  border-bottom: 1px dashed #fff;
+}
 .img_box{
   width : 100%;
   height : 0;
@@ -160,8 +164,43 @@ const onClickStart = async () => {
   }
 }
 .mission-list {
+  padding: 10px 0;
   li {
     margin: 5px 0;
   }
 }
+
+
+.focus-in-expand {
+  background-color: #00185c; 
+	-webkit-animation: focus-in-expand 0.8s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
+	        animation: focus-in-expand 0.8s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
+}
+@-webkit-keyframes focus-in-expand {
+  0% {
+    letter-spacing: -0.5em;
+    -webkit-filter: blur(12px);
+            filter: blur(12px);
+    opacity: 0;
+  }
+  100% {
+    -webkit-filter: blur(0px);
+            filter: blur(0px);
+    opacity: 1;
+  }
+}
+@keyframes focus-in-expand {
+  0% {
+    letter-spacing: -0.5em;
+    -webkit-filter: blur(12px);
+            filter: blur(12px);
+    opacity: 0;
+  }
+  100% {
+    -webkit-filter: blur(0px);
+            filter: blur(0px);
+    opacity: 1;
+  }
+}
+
 </style>
