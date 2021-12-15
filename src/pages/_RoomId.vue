@@ -1,6 +1,6 @@
 <template>
   <transition name="fade">
-    <div class="wrap_room text-center text-xl font-bold" v-if="!loading">
+    <div class="wrap_room text-center text-xl font-bold" v-if="!loading && !showDugudugu">
       <template v-if="currentRoom">
         <h2 class="text-white text-2xl">
           {{ currentRoom.title }}
@@ -42,6 +42,16 @@
 
     </div>
   </transition>
+  <transition name="fade">
+    <div class="text-white" v-if="showDugudugu">
+      <div class="flex justify-center">
+        <TurnSquare />
+      </div>
+      <div class="text-2xl text-center">
+        과연 누가 뽑힐까요!!
+      </div>
+    </div>
+  </transition>
 </template>
 
 <script lang="ts" setup>
@@ -58,6 +68,8 @@ import List from '@/components/atoms/List.vue'
 import ListItem from '@/components/atoms/ListItem.vue'
 import { startManito } from '@/utils/api'
 import moment from 'moment'
+import delay from '@/utils/delay'
+import TurnSquare from '@/components/atoms/TurnSquare.vue'
 
 const { user } = storeToRefs(useAuthStore())
 const { myInfo } = storeToRefs(useMyInfoStore())
@@ -71,14 +83,25 @@ const dueDate = computed(() => moment(currentRoom.value.dueDate).format('YYYY년
 const currentRoom = computed<Room>(() => roomList.value.filter(x => x.id === roomId.value)[0] ?? null)
 const showStartBtn = computed(() => currentRoom.value.presidentId === user.value?.userId && currentRoom.value.status === 'Waiting')
 
+const showDugudugu = ref(false)
+
 watch(user, async u => {
   if (u) {
     await useAsync(() =>
-      myInfoStore.fetchMyInfo().then(() =>
-          roomStore.fetchRoomList(myInfo.value?.participated ?? [])
-      )
+      myInfoStore
+        .fetchMyInfo()
+        .then(() =>
+          roomStore
+            .fetchRoomList(myInfo.value?.participated ?? [])
+        )
     )
-
+    const initiated = localStorage.getItem(roomId.value.toString()) !== null
+    if (!initiated && currentRoom.value.status === 'Done') {
+      localStorage.setItem(roomId.value.toString(), 'test-1')
+      showDugudugu.value = true
+      await delay(5000)
+      showDugudugu.value = false
+    }
     loading.value = false
   }
 }, {
@@ -129,7 +152,7 @@ const onClickStart = async () => {
   width : 100%;
   height : 0;
   padding-top : calc(414 / 576 * 100%);
-  background: url(@/assets/image/img_santaclaus.png)center center / cover no-repeat;
+  background: url(@/assets/image/img_santaclaus.png) center center / cover no-repeat;
   .txt_matching{
     display: block;
     font-size: 50px;
