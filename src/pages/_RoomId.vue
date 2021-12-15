@@ -10,18 +10,20 @@
             마니또 매칭 시작
           </Button>
         </div>
-        <span class="tit_paticipants text-white text-lg">참가인원</span>
-        <List>
-          <template v-for="participant in currentRoom.participants" :key="participant.id">
-            <ListItem>
-              <div class="flex items-center">
-                <img :src="participant.profileImage" class="w-6 h-6 rounded-full" />
-                <span class="ml-4 text-sm font-normal text-white">{{ participant.name }}</span>
-              </div>
-            </ListItem>
-          </template>
-        </List>
-        <div class="img_box mt-6">
+        <div v-if="!myManito">
+          <span class="tit_paticipants text-white text-lg">참가인원</span>
+          <List>
+            <template v-for="participant in currentRoom.participants" :key="participant.id">
+              <ListItem>
+                <div class="flex items-center">
+                  <img :src="participant.profileImage" class="w-6 h-6 rounded-full" />
+                  <span class="ml-4 text-sm font-normal text-white">{{ participant.name }}</span>
+                </div>
+              </ListItem>
+            </template>
+          </List>
+        </div>
+        <div v-else class="img_box mt-6">
           <!-- 하드코딩임 -->
           <span class="txt_matching">{{ myManito ? myManito.name : '선택되지 않았어요' }}</span>
         </div>
