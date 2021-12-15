@@ -46,7 +46,7 @@ const { isScrolledY } = useScrollObserver({
 @-webkit-keyframes snow {
 0% {background-position: 0px 0px, 0px 0px, 0px 0px;}
  50% {background-color:#b4cfe0;}
- 100% {background-position: 500px 1000px, 400px 400px, 300px 300px; background-color:#6b92b9;}
+ 100% {background-position: 500px 1000px, 400px 400px, 300px 300px; background-color:#00185c;}
 }
 
 @-ms-keyframes snow {
