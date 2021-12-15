@@ -47,7 +47,7 @@
       <div class="text-2xl text-center">
         과연 누가 뽑힐까요!!
       </div>
-      <div class="flex justify-center mb-20">
+      <div class="area_turnSquare flex justify-center mb-20">
         <TurnSquare />
       </div>
     </div>
@@ -202,5 +202,7 @@ const onClickStart = async () => {
     opacity: 1;
   }
 }
-
+.area_turnSquare{
+  margin-top: -50px;
+}
 </style>
