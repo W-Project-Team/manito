@@ -15,12 +15,12 @@
         </div>
         <div v-if="!myManito">
           <span class="tit_paticipants text-white text-lg">참가인원</span>
-          <List>
+          <List class="list_parti">
             <template v-for="participant in currentRoom.participants" :key="participant.id">
               <ListItem>
                 <div class="flex items-center">
                   <img :src="participant.profileImage" class="w-6 h-6 rounded-full" />
-                  <span class="ml-4 text-sm font-normal text-white">{{ participant.name }}</span>
+                  <span class="ml-4 text-lg font-normal text-white">{{ participant.name }}</span>
                 </div>
               </ListItem>
             </template>
@@ -32,11 +32,11 @@
         </div>
       </template>
       <ul class="mt-6 text-white text-left font-normal mission-list">
-        <li class="">&#128154; 만원이하 선물</li>
-        <li>&#128155; 팀즈 좋아요 눌러주기</li>
-        <li>&#129505; 쓸데없이 말걸기</li>
-        <li>&#128156; 리액션 잘해주기</li>
-        <li>&#128153; 눈인사 찡끗 😜</li>
+        <li class="text-base">&#128154; 만원이하 선물</li>
+        <li class="text-base">&#128155; 팀즈 좋아요 눌러주기</li>
+        <li class="text-base">&#129505; 쓸데없이 말걸기</li>
+        <li class="text-base">&#128156; 리액션 잘해주기</li>
+        <li class="text-base">&#128153; 눈인사 찡끗 😜</li>
       </ul>
       <span></span>
 
@@ -124,6 +124,10 @@ const onClickStart = async () => {
     text-align: left;
     font-weight: 400;
   }
+}
+.list_parti {
+  padding: 0 0 15px;
+  border-bottom: 1px dashed #fff;
 }
 .img_box{
   width : 100%;

@@ -28,15 +28,13 @@ const { isScrolledY } = useScrollObserver({
   position: relative;
   overflow: hidden;
   width: 100%;
-  height: 100vh;
+  min-height: 100vh;
 }
 .top {
 	  position: relative;
-	  width: 100%;
-	  position: relative;
-	  width: 100%;
-		height: 100vh;
 	  overflow: hidden;
+	  width: 100%;
+		min-height: 100vh;
 	  background: #00185c
 	}
 
@@ -58,7 +56,7 @@ const { isScrolledY } = useScrollObserver({
 	.stars:after {
 	  content: " ";
 	  position: absolute;
-	  top: 2000px;
+	  top: 0;
 	  width: inherit;
 	  height: inherit;
 	  opacity: inherit;
