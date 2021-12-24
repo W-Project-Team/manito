@@ -70,6 +70,7 @@ import { startManito } from '@/utils/api'
 import moment from 'moment'
 import delay from '@/utils/delay'
 import TurnSquare from '@/components/atoms/TurnSquare.vue'
+import music from '@/assets/audio/music.mp3'
 
 const { user } = storeToRefs(useAuthStore())
 const { myInfo } = storeToRefs(useMyInfoStore())
@@ -124,6 +125,11 @@ const onClickStart = async () => {
   await useAsync(() => startManito('RP4VGHt0UX58FDRpkRBc'))
   location.reload()
 }
+
+onMounted(() => {
+  const audio = new Audio(music)
+  audio.play()
+})
 </script>
 <style scoped lang="scss">
 .wrap_room{
@@ -172,7 +178,7 @@ const onClickStart = async () => {
 
 
 .focus-in-expand {
-  background-color: #00185c; 
+  background-color: #00185c;
 	-webkit-animation: focus-in-expand 0.8s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
 	        animation: focus-in-expand 0.8s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
 }
