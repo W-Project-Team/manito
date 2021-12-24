@@ -18,6 +18,7 @@ const { isScrolledY } = useScrollObserver({
 
 
 .container {
+	margin: 0 auto;
 	background-color: #00185c; 
 	background-image: url('@/assets/image/snow.png'), url('@/assets/image/snow3.png'), url('@/assets/image/snow2.png');
 	-webkit-animation: snow 20s linear infinite;
