@@ -26,7 +26,7 @@
             </template>
           </List>
         </div>
-        <div v-else class="img_box mt-6 rounded-xl">
+        <div v-else class="img_box mt-6 rounded-xl" @click="onClickSanta">
           <!-- 하드코딩임 -->
           <span class="txt_matching">{{ myManito ? myManito.name : '선택되지 않았어요' }}</span>
         </div>
@@ -71,6 +71,7 @@ import moment from 'moment'
 import delay from '@/utils/delay'
 import TurnSquare from '@/components/atoms/TurnSquare.vue'
 import music from '@/assets/audio/music.mp3'
+import { Nullable } from '@/types/base'
 
 const { user } = storeToRefs(useAuthStore())
 const { myInfo } = storeToRefs(useMyInfoStore())
@@ -79,6 +80,7 @@ const myInfoStore = useMyInfoStore()
 const roomStore = useRoomStore()
 
 const loading = ref(true)
+const backgroundMusic = ref<Nullable<HTMLAudioElement>>(null)
 
 const dueDate = computed(() => moment(currentRoom.value.dueDate).format('YYYY년 M월 D일'))
 const currentRoom = computed<Room>(() => roomList.value.filter(x => x.id === roomId.value)[0] ?? null)
@@ -126,10 +128,17 @@ const onClickStart = async () => {
   location.reload()
 }
 
-onMounted(() => {
-  const audio = new Audio(music)
-  audio.play()
-})
+const onClickSanta = () => {
+  if (backgroundMusic.value === null) {
+    backgroundMusic.value = new Audio(music)
+  }
+
+  if (backgroundMusic.value && backgroundMusic.value.duration > 0 && !backgroundMusic.value.paused) {
+    backgroundMusic.value.pause()
+  } else {
+    backgroundMusic.value?.play()
+  }
+}
 </script>
 <style scoped lang="scss">
 .wrap_room{
